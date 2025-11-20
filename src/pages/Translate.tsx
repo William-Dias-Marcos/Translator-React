@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeftRight } from "@fortawesome/free-solid-svg-icons";
+import Select from "../components/Select";
+import Button from "../components/Button";
 
 const Languages = [
   { code: "pt", name: "Português" },
@@ -68,41 +69,28 @@ function Translate() {
       <div className="w-full max-w-5xl rounded-lg shadow-md">
         <div className="flex items-center justify-between p-4">
           <div className="w-2xs tooltip" data-tip="Idioma de origem">
-            <select
+            <Select
               value={sourceLang}
               onChange={(e) => setSourceLang(e.target.value)}
-              className="select"
-            >
-              {Languages.map((lang) => (
-                <option key={lang.code} value={lang.code}>
-                  {lang.name}
-                </option>
-              ))}
-            </select>
+              options={Languages}
+              tooltip="Idioma de origem"
+              className="w-2xs"
+            />
           </div>
 
-          <button
+          <Button
             onClick={swapLanguages}
-            className="p-2 rounded cursor-pointer tooltip"
-            data-tip="Alterar idiomas"
-          >
-            <FontAwesomeIcon icon={faLeftRight} />
-          </button>
+            icon={faLeftRight}
+            tooltip="Alterar idiomas"
+          />
 
-          <div className="w-2xs tooltip" data-tip="Idioma de destino">
-            <select
-              value={targetLang}
-              onChange={(e) => setTargetLang(e.target.value)}
-              className="select tooltip"
-              data-tip="Alterar idiomas"
-            >
-              {Languages.map((lang) => (
-                <option key={lang.code} value={lang.code}>
-                  {lang.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <Select
+            value={targetLang}
+            onChange={(e) => setTargetLang(e.target.value)}
+            options={Languages}
+            tooltip="Idioma de destino"
+            className="w-2xs"
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2">
