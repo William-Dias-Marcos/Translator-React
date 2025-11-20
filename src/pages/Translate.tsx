@@ -41,7 +41,6 @@ function Translate() {
 
       if (!sourceText) {
         setTranslatedText("");
-        return;
       }
     } catch (err) {
       setError(`Erro ao traduzir: ${err}`);
@@ -51,6 +50,11 @@ function Translate() {
   }, [sourceText, sourceLang, targetLang]);
 
   useEffect(() => {
+    if (!sourceText) {
+      setTranslatedText("");
+      return;
+    }
+
     const delay = setTimeout(() => {
       handleTranslate();
     }, 300);
@@ -69,15 +73,13 @@ function Translate() {
     <main className="flex items-start justify-center px-4 py-8">
       <div className="w-full max-w-5xl rounded-lg shadow-md">
         <div className="flex items-center justify-between p-4">
-          <div className="w-2xs tooltip" data-tip="Idioma de origem">
-            <Select
-              value={sourceLang}
-              onChange={(e) => setSourceLang(e.target.value)}
-              options={Languages}
-              tooltip="Idioma de origem"
-              className="w-2xs"
-            />
-          </div>
+          <Select
+            value={sourceLang}
+            onChange={(e) => setSourceLang(e.target.value)}
+            options={Languages}
+            tooltip="Idioma de origem"
+            className=""
+          />
 
           <Button
             onClick={swapLanguages}
@@ -90,7 +92,7 @@ function Translate() {
             onChange={(e) => setTargetLang(e.target.value)}
             options={Languages}
             tooltip="Idioma de destino"
-            className="w-2xs"
+            className=""
           />
         </div>
 
