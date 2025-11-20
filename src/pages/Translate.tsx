@@ -66,37 +66,43 @@ function Translate() {
   return (
     <main className="flex items-start justify-center px-4 py-8">
       <div className="w-full max-w-5xl rounded-lg shadow-md">
-        <div className="flex items-center justify-between p-4 ">
-          <select
-            value={sourceLang}
-            onChange={(e) => setSourceLang(e.target.value)}
-            className="select"
-          >
-            {Languages.map((lang) => (
-              <option key={lang.code} value={lang.code}>
-                {lang.name}
-              </option>
-            ))}
-          </select>
+        <div className="flex items-center justify-between p-4">
+          <div className="w-2xs tooltip" data-tip="Idioma de origem">
+            <select
+              value={sourceLang}
+              onChange={(e) => setSourceLang(e.target.value)}
+              className="select"
+            >
+              {Languages.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <button
             onClick={swapLanguages}
-            className="p-2 rounded cursor-pointer"
+            className="p-2 rounded cursor-pointer tooltip"
+            data-tip="Alterar idiomas"
           >
             <FontAwesomeIcon icon={faLeftRight} />
           </button>
 
-          <select
-            value={targetLang}
-            onChange={(e) => setTargetLang(e.target.value)}
-            className="select"
-          >
-            {Languages.map((lang) => (
-              <option key={lang.code} value={lang.code}>
-                {lang.name}
-              </option>
-            ))}
-          </select>
+          <div className="w-2xs tooltip" data-tip="Idioma de destino">
+            <select
+              value={targetLang}
+              onChange={(e) => setTargetLang(e.target.value)}
+              className="select tooltip"
+              data-tip="Alterar idiomas"
+            >
+              {Languages.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2">
