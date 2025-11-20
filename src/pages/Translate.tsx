@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { faLeftRight } from "@fortawesome/free-solid-svg-icons";
 import Select from "../components/Select";
 import Button from "../components/Button";
+import type { TranslationResponse } from "../types/translation-response";
 
 const Languages = [
   { code: "pt", name: "Português" },
@@ -34,9 +35,14 @@ function Translate() {
 
       if (!response.ok) throw new Error(`HTTP ERROR: ${response.status}`);
 
-      const data = await response.json();
+      const data: TranslationResponse = await response.json();
 
       setTranslatedText(data.responseData.translatedText);
+
+      if (!sourceText) {
+        setTranslatedText("");
+        return;
+      }
     } catch (err) {
       setError(`Erro ao traduzir: ${err}`);
     } finally {
@@ -45,11 +51,6 @@ function Translate() {
   }, [sourceText, sourceLang, targetLang]);
 
   useEffect(() => {
-    if (!sourceText) {
-      setTranslatedText("");
-      return;
-    }
-
     const delay = setTimeout(() => {
       handleTranslate();
     }, 300);
